@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>para mi novia preciosa ❤️</title>
+  <style>
+    :root{
+      --bg:#0f0f14; --card:#171722; --muted:#9aa0a6; --accent:#ff6fa9; --accent-2:#a78bfa; --text:#f7f7fb;
+    }
+    *{box-sizing:border-box}
+    html,bodyhtml,body{
+    margin:0;
+    padding:0;
+    background: radial-gradient(circle at 75% -5%, #18122B 0%, #0c0816 60%, #060408 100%);
+    color:var(--text);
+    font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji"
+}
+    a{color:inherit}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    header{position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06)}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;padding:56px 24px}
+    @media (max-width:900px){.hero{grid-template-columns:1fr;padding:36px 16px}}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));backdrop-filter: blur(6px);border:1px solid rgba(255,255,255,.08);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+    .title{font-size:clamp(28px,4.2vw,44px);font-weight:800;letter-spacing:.4px;margin:0 0 10px}
+    .subtitle{color:var(--muted);margin:0}
+    .pill{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);font-weight:600;font-size:14px}
+    .btn{appearance:none;border:none;border-radius:14px;padding:12px 16px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--accent),#ff94c4);color:#1a0820;box-shadow:0 10px 20px rgba(255,111,169,.35);transition:transform .08s ease, box-shadow .2s}
+    .btn:active{transform:translateY(1px);box-shadow:0 6px 12px rgba(255,111,169,.25)}
+    .btn.outline{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.14)}
+
+    /* floating hearts bg */
+    .float-heart{position:absolute;top:-20px;animation: fall 9s linear infinite;opacity:.7;filter: drop-shadow(0 4px 10px rgba(255,111,169,.3))}
+    @keyframes fall{to{transform:translateY(130vh) rotate(360deg)}}
+
+    section{padding:36px 0}
+    h2{font-size:clamp(22px,3.2vw,30px);margin:0 0 18px}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    @media (max-width:1000px){.gallery{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:720px){.gallery{grid-template-columns:repeat(2,1fr)}}
+    .gallery figure{margin:0;position:relative;border-radius:14px;overflow:hidden;cursor:zoom-in;background:var(--card);border:1px solid rgba(255,255,255,.06)}
+    .gallery img{width:100%;height:180px;object-fit:cover;display:block;transition:transform .35s ease}
+    .gallery figure:hover img{transform:scale(1.04)}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(7,7,10,.84);backdrop-filter: blur(6px);display:none;place-items:center;z-index:50}
+    .lightbox.open{display:grid}
+    .lightbox img{max-width:min(92vw,1100px);max-height:82vh;border-radius:16px;border:1px solid rgba(255,255,255,.12);background:#000}
+    .lb-controls{position:fixed;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+    .lb-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter: blur(6px);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;font-size:22px;font-weight:900}
+    .lb-close{position:fixed;top:18px;right:18px}
+
+    /* Game */
+    .game-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+    @media (max-width:1000px){.game-wrap{grid-template-columns:1fr;}}
+    canvas{width:100%;height:auto;background:linear-gradient(180deg,#141824,#0e1118);border-radius:20px;border:1px solid rgba(255,255,255,.08)}
+    .hud{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .badge{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);font-weight:700}
+    .tip{font-size:14px;color:var(--muted)}
+    .overlay{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:20px}
+    .overlay.show{display:grid}
+    .overlay .box{background:rgba(10,10,14,.8);border:1px solid rgba(255,255,255,.12);padding:24px;border-radius:18px}
+
+    footer{padding:28px 0 48px;color:var(--muted);text-align:center}
+  </style>
+</head>
+<body>
+  <header>
+    <!-- floating hearts (decoración) -->
+    <svg class="float-heart" style="left:6%; animation-delay: .2s; width:22px;" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-6.716-4.516-9.6-7.4C.515 11.715.515 8.286 2.4 6.4c1.885-1.885 4.943-1.885 6.828 0L12 9.172l2.772-2.772c1.885-1.885 4.943-1.885 6.828 0 1.885 1.886 1.885 5.315 0 7.2C18.716 16.484 12 21 12 21Z"/></svg>
+    <svg class="float-heart" style="left:22%; animation-delay: 1.2s; width:16px;" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-6.716-4.516-9.6-7.4C.515 11.715.515 8.286 2.4 6.4c1.885-1.885 4.943-1.885 6.828 0L12 9.172l2.772-2.772c1.885-1.885 4.943-1.885 6.828 0 1.885 1.886 1.885 5.315 0 7.2C18.716 16.484 12 21 12 21Z"/></svg>
+    <svg class="float-heart" style="left:64%; animation-delay: .8s; width:18px;" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-6.716-4.516-9.6-7.4C.515 11.715.515 8.286 2.4 6.4c1.885-1.885 4.943-1.885 6.828 0L12 9.172l2.772-2.772c1.885-1.885 4.943-1.885 6.828 0 1.885 1.886 1.885 5.315 0 7.2C18.716 16.484 12 21 12 21Z"/></svg>
+    <svg class="float-heart" style="left:85%; animation-delay: 2.2s; width:20px;" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21s-6.716-4.516-9.6-7.4C.515 11.715.515 8.286 2.4 6.4c1.885-1.885 4.943-1.885 6.828 0L12 9.172l2.772-2.772c1.885-1.885 4.943-1.885 6.828 0 1.885 1.886 1.885 5.315 0 7.2C18.716 16.484 12 21 12 21Z"/></svg>
+
+    <div class="container hero">
+      <div class="card" style="padding:22px 22px 26px">
+        <div class="pill">Para: <span id="nameTarget">anny mi mujer </span>❤️</div>
+        <h1 class="title">Nosotro :3</h1>
+        <p class="subtitle">Fotito juntos en roblo y un jueguito solo pa ti mi amor ❤️</p>
+        <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap">
+          <button class="btn" id="scrollToGallery">Ver álbum</button>
+          <button class="btn outline" id="scrollToGame">Jugar</button>
+        </div>
+      </div>
+      <div class="card" style="padding:22px">
+        <h3 style="margin:0 0 12px">Mensajito secreto :O</h3>
+        <p id="loveMessage" style="margin:0;color:#e9e4ff">Eres la chica mas dulce que he conocido, endulzas mi vida cada dia y me haces muy feli, gracias por estar conmigo te amo mushooooo mi amol</p>
+        <div style="display:flex; gap:10px; margin-top:16px; align-items:center; flex-wrap:wrap">
+          <label class="tip"></label>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Álbum -->
+    <section>
+  <h2>roblo 🎮</h2>
+  <div class="gallery">
+    <figure><img src="images/roblo1.jpg" alt="Roblox"></figure>
+    <figure><img src="images/roblo2.jpg" alt="Roblox"></figure>
+    <figure><img src="images/roblo3.jpg" alt="Roblox"></figure>
+    <figure><img src="images/roblo4.jpg" alt="Roblox"></figure>
+    <figure><img src="images/roblo5.jpg" alt="Roblox"></figure>
+    <figure><img src="images/roblo6.jpg" alt="Roblox"></figure>
+    <figure><img src="images/roblo7.jpg" alt="Roblox"></figure>
+  </div>
+</section>
+
+<section>
+  <h2>Mi diosa 🛐</h2>
+  <div class="gallery">
+    <figure><img src="images/ella1.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella2.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella3.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella4.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella5.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella6.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella7.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella8.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella9.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella10.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella11.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella12.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella13.jpg" alt="Mi diosa"></figure>
+    <figure><img src="images/ella14.jpg" alt="Mi diosa"></figure>
+
+  </div>
+</section>
+
+<section>
+  <h2>eia y io 💑🏻</h2>
+  <div class="gallery">
+    <figure><img src="images/nosotro1.jpg" alt="Momentos"></figure>
+    <figure><img src="images/nosotro2.jpg" alt="Momentos"></figure>
+    <figure><img src="images/nosotro3.jpg" alt="Momentos"></figure>
+    <figure><img src="images/nosotro4.jpg" alt="Momentos"></figure>
+    <figure><img src="images/nosotro5.jpg" alt="Momentos"></figure>
+  </div>
+</section>
+
+<section>
+  <h2>Nuestra hija 🐈</h2>
+  <div class="gallery">
+    <figure><img src="images/hija1.jpg" alt="Momentos"></figure>
+    <figure><img src="images/hija2.jpg" alt="Momentos"></figure>
+  </div>
+</section>
+      
+
+    <!-- Minijuego -->
+    <section id="game">
+      <h2>Jueguito: atrapa mi corazon JDSJJSJ pero ojito con lo corazone roto 🙀</h2>
+      <div class="game-wrap">
+        <div style="position:relative">
+          <canvas id="gameCanvas" width="900" height="520"></canvas>
+          <div class="overlay" id="gameOverlay">
+            <div class="box">
+              <h3 id="overlayTitle" style="margin:0 0 8px">Listo para jugar</h3>
+              <p id="overlayText" class="tip" style="margin:0 0 14px">Mueve el mouse (o tu dedo) para atrapar corazones. Evita los rotos 💔.</p>
+              <div style="display:flex; gap:10px; justify-content:center; margin-top:4px">
+                <button class="btn" id="startBtn">Empezar</button>
+                <button class="btn outline" id="restartBtn" style="display:none">Volver a jugar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="padding:18px">
+            <div class="hud">
+              <div class="badge">Puntaje: <span id="score">0</span></div>
+              <div class="badge">Vidas: <span id="lives">3</span></div>
+              <div class="badge">Mejor: <span id="best">0</span></div>
+            </div>
+            <p class="tip" style="margin:14px 0 0">Ganas <b>1</b> puntito por cada corazón ❤️ atrapado. Pierdes una vida si dejas caer un corazón o si atrapas un 💔 roto. 
+            Si llegas a <b id="goal">40</b> puntos, se desbloquea un mensajito especial mi amorcito ✨.</p>
+            <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn" id="playBtn">Jugar ahora</button>
+              <button class="btn outline" id="pauseBtn">Pausar</button>
+            </div>
+          </div>
+         <div class="card" style="padding:18px; margin-top:12px; display:none;" id="surpriseMessageContainer">
+  <h3 style="margin:0 0 8px">Mensaje sorpresa</h3>
+  <p id="winMessage" class="tip" style="margin:0"></p>
+  <small class="tip"></small>
+</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Hecho con amor por <span id="fromName">tu player 2</span>❤️
+  </footer>
+
+  <!-- Lightbox modal -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lb-controls">
+      <button class="lb-btn" id="prevBtn" aria-label="Anterior">‹</button>
+      <button class="lb-btn" id="nextBtn" aria-label="Siguiente">›</button>
+    </div>
+    <button class="lb-btn lb-close" id="closeBtn" aria-label="Cerrar">✕</button>
+    <img id="lbImage" alt="Foto" />
+  </div>
+
+  <script>
+   
+    const SETTINGS = {
+      yourName: "cris",
+      partnerName: "Anny mi mujer",
+      targetScore: 40, // puntos para mostrar mensaje sorpresa
+      loveMessage: "Eres la chica mas dulce que he conocido, endulzas mi vida cada dia y me haces muy feli, gracias por estar conmigo te amo mushooooo mi amol",
+      winMessage: "Ganasteeeee que pro mi amor, ganaste aqui y te ganaste tambien mi corazon muaaaaa 😽❤️",
+    };
+
+    
+    
+
+function showLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightbox-image');
+
+  lightboxImage.src = photos[currentIndex];
+  lightbox.style.display = 'flex';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+}
+
+function prevPhoto() {
+  currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+  showLightbox();
+}
+
+function nextPhoto() {
+  currentIndex = (currentIndex + 1) % photos.length;
+  showLightbox();
+}
+
+    // Pega tus fotos de ROBLOX: reemplaza el arreglo por rutas locales, por ejemplo:
+    // const photos = ["images/roblox1.jpg","images/roblox2.jpg", ...];
+
+    // Escribe sus nombres y mensajes en la UI
+    document.getElementById('nameTarget').textContent = SETTINGS.partnerName;
+    document.getElementById('fromName').textContent = SETTINGS.yourName;
+    document.getElementById('loveMessage').textContent = SETTINGS.loveMessage;
+    document.getElementById('winMessage').textContent = SETTINGS.winMessage;
+    document.getElementById('goal').textContent = SETTINGS.targetScore;
+
+    // Scroll helpers
+    document.getElementById('scrollToGallery').addEventListener('click',()=>document.getElementById('album').scrollIntoView({behavior:'smooth'}));
+    document.getElementById('scrollToGame').addEventListener('click',()=>document.getElementById('game').scrollIntoView({behavior:'smooth'}));
+
+    // ============================
+ // ============================
+    // 📸 Galería + Lightbox
+    // ============================
+    // Tomar todas las imágenes que ya están en el HTML
+const photos = Array.from(document.querySelectorAll('.gallery img')).map(img => img.src);
+
+// Define las variables del lightbox aquí, antes de usarlas.
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImage');
+const closeBtn = document.getElementById('closeBtn');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+let currentIndex; // Esta variable almacena el índice de la imagen actual.
+
+// Asignarles el evento para abrir el lightbox
+document.querySelectorAll('.gallery img').forEach((img, i) => {
+  img.addEventListener('click', () => openLightbox(i));
+});
+
+function openLightbox(i) {
+  currentIndex = i;
+  lbImg.src = photos[i];
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden', 'false');
+}
+
+function closeLightbox() {
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden', 'true');
+}
+
+function showPrev() {
+  currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+  lbImg.src = photos[currentIndex];
+}
+
+function showNext() {
+  currentIndex = (currentIndex + 1) % photos.length;
+  lbImg.src = photos[currentIndex];
+}
+
+lb.addEventListener('click', (e) => {
+  if (e.target === lb) closeLightbox();
+});
+closeBtn.addEventListener('click', closeLightbox);
+prevBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showPrev();
+});
+nextBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  showNext();
+});
+window.addEventListener('keydown', (e) => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') showPrev();
+  if (e.key === 'ArrowRight') showNext();
+});
+
+// Nota: No necesitas llamar a renderGallery(); porque ya tienes las imágenes en el HTML.
+
+
+   // ============================
+    // 🎮 Minijuego: Atrapa corazones
+    // ============================
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const overlay = document.getElementById('gameOverlay');
+    const startBtn = document.getElementById('startBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const playBtn = document.getElementById('playBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+
+    const scoreEl = document.getElementById('score');
+    const livesEl = document.getElementById('lives');
+    const bestEl = document.getElementById('best');
+    const winMessageEl = document.getElementById('winMessage');
+    const surpriseMessageContainer = document.getElementById('surpriseMessageContainer');
+
+    let DPR = Math.max(1, window.devicePixelRatio || 1);
+    function resizeCanvas(){
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = Math.floor(rect.width * DPR);
+      canvas.height = Math.floor(rect.width * 0.58 * DPR); // 16:9-ish
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const state = {
+      playing:false,
+      paused:false,
+      score:0,
+      lives:3,
+      best: Number(localStorage.getItem('bestHeartScore')||0),
+      basketX: 0,
+      basketY: 0,
+      hearts: [],
+      lastSpawn: 0,
+      spawnEvery: 650, // ms
+    };
+    bestEl.textContent = state.best;
+
+    function resetGame(){
+      state.playing = false; state.paused=false; state.score = 0; state.lives = 3; state.hearts = []; state.lastSpawn = 0;
+      updateHUD();
+      showOverlay(true, 'Listo para jugar', 'Mueve el mouse (o tu dedo) para atrapar corazones. Evita los rotos 💔.');
+      restartBtn.style.display = 'none';
+    }
+
+    function updateHUD(){ scoreEl.textContent = state.score; livesEl.textContent = state.lives; }
+
+    function showOverlay(show, title, text){
+      document.getElementById('overlayTitle').textContent = title;
+      document.getElementById('overlayText').textContent = text;
+      overlay.classList.toggle('show', !!show);
+    }
+
+    function startGame(){
+      overlay.classList.remove('show');
+      state.playing = true; state.paused=false; state.score=0; state.lives=3; state.hearts=[]; state.lastSpawn = 0; updateHUD();
+      lastTime = performance.now();
+      requestAnimationFrame(loop);
+    }
+
+    function pauseGame(){ state.paused = !state.paused; pauseBtn.textContent = state.paused ? 'Reanudar' : 'Pausar'; if(!state.paused && state.playing) { lastTime = performance.now(); requestAnimationFrame(loop);} }
+
+    // Input: mouse / touch
+    function setBasketFromEvent(x){
+      const rect = canvas.getBoundingClientRect();
+      const cx = (x - rect.left) * DPR;
+      state.basketX = Math.max(0, Math.min(canvas.width, cx));
+      state.basketY = canvas.height - 40 * DPR;
+    }
+    canvas.addEventListener('mousemove', e=> setBasketFromEvent(e.clientX));
+    canvas.addEventListener('touchmove', e=> { setBasketFromEvent(e.touches[0].clientX); e.preventDefault(); }, {passive:false});
+
+    // Helpers para dibujar
+    function heartPath(context, x, y, s){
+      const cp = s * 0.55191502449; // circle control point
+      context.beginPath();
+      context.moveTo(x, y + s/4);
+      context.bezierCurveTo(x, y, x - s/2, y, x - s/2, y + s/4);
+      context.bezierCurveTo(x - s/2, y + s/1.5, x, y + s/1.2, x, y + s);
+      context.bezierCurveTo(x, y + s/1.2, x + s/2, y + s/1.5, x + s/2, y + s/4);
+      context.bezierCurveTo(x + s/2, y, x, y, x, y + s/4);
+      context.closePath();
+    }
+
+    function drawHeart(x,y,size,broken=false){
+      ctx.save();
+      ctx.translate(x,y);
+      ctx.fillStyle = broken ? '#ff335c' : '#ff77aa';
+      heartPath(ctx,0,0,size);
+      ctx.fill();
+      if(broken){
+        // grieta
+        ctx.strokeStyle = '#2a0a14';
+        ctx.lineWidth = Math.max(1, size*0.06);
+        ctx.beginPath();
+        ctx.moveTo(-size*0.05, size*0.2);
+        ctx.lineTo(0, size*0.45);
+        ctx.lineTo(size*0.1, size*0.7);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawBasket(){
+      const w = 120 * DPR, h = 20 * DPR;
+      const x = Math.max(w/2, Math.min(canvas.width - w/2, state.basketX));
+      const y = state.basketY;
+      // barra redondeada
+      ctx.save();
+      ctx.fillStyle = '#ffe1f0';
+      ctx.strokeStyle = '#ff99c7';
+      roundRect(ctx, x - w/2, y - h/2, w, h, 10 * DPR);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+      return {x: x - w/2, y: y - h/2, w, h};
+    }
+
+    function roundRect(ctx, x,y,w,h,r){
+      ctx.beginPath();
+      ctx.moveTo(x+r,y);
+      ctx.arcTo(x+w,y,x+w,y+h,r);
+      ctx.arcTo(x+w,y+h,x,y+h,r);
+      ctx.arcTo(x,y+h,x,y,r);
+      ctx.arcTo(x,y,x+w,y,r);
+      ctx.closePath();
+    }
+
+    function spawnHeart(){
+      const size = (18 + Math.random()*16) * DPR;
+      const x = (20 + Math.random()*(canvas.width - 40));
+      const speed = (1.1 + Math.random()*1.6) * DPR;
+      const broken = Math.random() < 0.18; // 18% rotos
+      state.hearts.push({x, y:-size, size, speed, broken});
+    }
+
+    function update(dt){
+      state.lastSpawn += dt;
+      if(state.lastSpawn > state.spawnEvery){
+        state.lastSpawn = 0; spawnHeart();
+      }
+      state.hearts.forEach(h => h.y += h.speed * dt/16.6);
+      // colisiones
+      const basket = drawBasket();
+      for(let i = state.hearts.length-1; i>=0; i--){
+        const h = state.hearts[i];
+        const caught = h.y + h.size >= basket.y && h.y <= basket.y + basket.h && h.x >= basket.x && h.x <= basket.x + basket.w;
+        const hitGround = h.y > canvas.height + 10 * DPR;
+        if(caught){
+          if(h.broken){ loseLife(); } else { state.score++; updateHUD(); }
+          state.hearts.splice(i,1);
+          checkWin();
+        } else if(hitGround){
+          if(!h.broken){ loseLife(); }
+          state.hearts.splice(i,1);
+        }
+      }
+    }
+
+    function checkWin(){
+      if(state.score >= SETTINGS.targetScore){
+        state.playing = false;
+        finish(true, SETTINGS.winMessage);
+      }
+    }
+
+    function loseLife(){
+      state.lives--; updateHUD();
+      if(state.lives <= 0){ finish(false, 'peldiste amor sigue intentando'); }
+    }
+
+    let lastTime = 0;
+    function loop(ts){
+      if(!state.playing || state.paused) return;
+      const dt = Math.min(50, ts - lastTime); lastTime = ts;
+      // clear
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      // fondo sutil
+      const grd = ctx.createLinearGradient(0,0,0,canvas.height);
+      grd.addColorStop(0,'#141824'); grd.addColorStop(1,'#0e1118');
+      ctx.fillStyle = grd; ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      // guías (suaves)
+      ctx.globalAlpha = .08;
+      ctx.fillStyle = '#ffffff';
+      for(let i=0;i<10;i++){ ctx.fillRect((i/10)*canvas.width, 0, 1, canvas.height); }
+      ctx.globalAlpha = 1;
+
+      // dibuja corazones
+      state.hearts.forEach(h => drawHeart(h.x, h.y, h.size, h.broken));
+      // dibuja canasta y actualiza
+      update(dt);
+
+      requestAnimationFrame(loop);
+    }
+
+    function finish(won, msg){
+      state.playing = false; state.paused=false; pauseBtn.textContent = 'Pausar';
+      state.best = Math.max(state.best, state.score); localStorage.setItem('bestHeartScore', state.best); bestEl.textContent = state.best;
+      showOverlay(true, won ? '¡Lo lograste! 🙀 ✨' : '¡Buen intento! 😎', msg + ` (Puntaje: ${state.score})`);
+      restartBtn.style.display = 'inline-block';
+      if (won) {
+        surpriseMessageContainer.style.display = 'block';
+        winMessageEl.textContent = SETTINGS.winMessage;
+      }
+    }
+
+    startBtn.addEventListener('click', startGame);
+    restartBtn.addEventListener('click', startGame);
+    playBtn.addEventListener('click', ()=>{ if(!state.playing){ startGame(); } });
+    pauseBtn.addEventListener('click', ()=>{ if(state.playing){ pauseGame(); }});
+
+    // inicia centrando la canasta
+    setBasketFromEvent(canvas.getBoundingClientRect().left + canvas.getBoundingClientRect().width/2);
+  </script>
+</body>
+</html>
